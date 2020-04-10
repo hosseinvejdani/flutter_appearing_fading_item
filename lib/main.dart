@@ -51,7 +51,17 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
-          Visibility(visible: isVisible, child: myItem('item 1'),),
+          AnimatedOpacity(
+            // If the widget is visible, animate to 0.0 (invisible).
+            // If the widget is hidden, animate to 1.0 (fully visible).
+            opacity: isVisible ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 500),
+            // The green box must be a child of the AnimatedOpacity widget.
+            child: Visibility(
+              visible: isVisible,
+              child: myItem('item 1'),
+            ),
+          ),
           myItem('item 2'),
           myItem('item 3'),
           myItem('item 4'),
@@ -61,3 +71,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
