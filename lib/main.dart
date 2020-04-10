@@ -21,14 +21,24 @@ class _HomePageState extends State<HomePage> {
   //
   bool isVisible = false;
   //
-  Widget myItem(String title) {
-    return Container(
-      width: double.infinity,
-      height: 50.0,
-      margin: EdgeInsets.all(5.0),
-      color: Colors.green,
-      child: Center(
-        child: Text(title),
+  Widget myItem(String title, bool visibility) {
+    return AnimatedOpacity(
+      // If the widget is visible, animate to 0.0 (invisible).
+      // If the widget is hidden, animate to 1.0 (fully visible).
+      opacity: visibility ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 500),
+      // The green box must be a child of the AnimatedOpacity widget.
+      child: Visibility(
+        visible: visibility,
+        child: Container(
+          width: double.infinity,
+          height: 50.0,
+          margin: EdgeInsets.all(5.0),
+          color: Colors.green,
+          child: Center(
+            child: Text(title),
+          ),
+        ),
       ),
     );
   }
@@ -51,25 +61,13 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
-          AnimatedOpacity(
-            // If the widget is visible, animate to 0.0 (invisible).
-            // If the widget is hidden, animate to 1.0 (fully visible).
-            opacity: isVisible ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
-            // The green box must be a child of the AnimatedOpacity widget.
-            child: Visibility(
-              visible: isVisible,
-              child: myItem('item 1'),
-            ),
-          ),
-          myItem('item 2'),
-          myItem('item 3'),
-          myItem('item 4'),
-          myItem('item 5'),
+          myItem('item 1',isVisible),
+          myItem('item 2',true),
+          myItem('item 3',true),
+          myItem('item 4',true),
+          myItem('item 5',true),
         ],
       )),
     );
   }
 }
-
-
